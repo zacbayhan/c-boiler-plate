@@ -1,5 +1,5 @@
 language: c
-install: make clean
+install: make
 dist: trusty
 compiler: gcc
-script: make
+script: make clean
