@@ -1,4 +1,5 @@
 language: c
-sudo: false
-script: bundle exec rspec
+install: make get-deps
 dist: trusty
+compiler: gcc
+
