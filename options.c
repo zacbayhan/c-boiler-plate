@@ -5,3 +5,7 @@ double options (){
 	return 0;
 }
 
+double path_gen(int num){
+	printf("You picked: ", num);
+}
+

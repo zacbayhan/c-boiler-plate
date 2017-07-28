@@ -8,6 +8,6 @@
 #include <stdio.h>
 
 double options ();
-
+double path_gen(int num);
 
 #endif
