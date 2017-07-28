@@ -2,4 +2,4 @@ language: c
 install: make
 dist: trusty
 compiler: gcc
-script: make clean
+script: make clean_all
