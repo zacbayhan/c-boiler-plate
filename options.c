@@ -1,32 +1,7 @@
-/*
-
-
-
-
-*/
-
-#include <iostream>
-#include <vector>
-#include"math.h"
-
-using namespace std;
-
-
-double options();
-
-
-int main(){
-
-	cout << "yea bitches!\n";
-	
-	options();
-	return 1;
-}
-
-
+#include"options.h"
 
 double options (){
-	cout << "in options!\n";
-	
+	printf("you have called the options function");
+	return 0;
 }
 
