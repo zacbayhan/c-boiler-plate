@@ -1,40 +1,41 @@
-OBJS := main.o options.o
+TARGET_EXEC ?= a.out
 
-EXECUTABLE := options
+BUILD_DIR ?= ./build
+SRC_DIRS ?= ./src
 
-SRCDIR := objFiles
+SRCS := $(shell find $(SRC_DIRS) -name *.cpp -or -name *.c -or -name *.s)
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+DEPS := $(OBJS:.o=.d)
 
-# choose compiler:
-# CC := mpiicc
-CC := gcc
+INC_DIRS := $(shell find $(SRC_DIRS) -type d)
+INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
-# choose flags:
-# flags for Intel compiler icc on maya:
-# CFLAGS := -O3 -std=c99 -Wall -mkl
-# flags for Portland Group compiler pgcc on maya:
-# CFLAGS := -O3 -c99 -Minform=warn -fastsse
-# flags for GNU compiler gcc anywhere:
-CFLAGS := -O3 -std=c99 -Wall -Wno-unused-variable
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
 
-DEFS :=
-INCLUDES :=
-LDFLAGS := -lm
+$(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
+	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
-%.o: %.c %.h
-	$(CC) $(CFLAGS) $(DEFS) $(INCLUDES) -c $< -o $@
+# assembly
+$(BUILD_DIR)/%.s.o: %.s
+	$(MKDIR_P) $(dir $@)
+	$(AS) $(ASFLAGS) -c $< -o $@
 
-$(EXECUTABLE): $(OBJS)
-	$(CC) $(CFLAGS) $(DEFS) $(INCLUDES) $(OBJS) -o $@ $(LDFLAGS)
+# c source
+$(BUILD_DIR)/%.c.o: %.c
+	$(MKDIR_P) $(dir $@)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+# c++ source
+$(BUILD_DIR)/%.cpp.o: %.cpp
+	$(MKDIR_P) $(dir $@)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+
+.PHONY: clean
 
 clean:
-	mkdir -p $(SRCDIR)
-	mv *.o $(SRCDIR)/
-	-rm -f *.o
+	$(RM) -r $(BUILD_DIR)
 
-clean_all:
-	-rm -f *.o $(EXECUTABLE)
-	@rm -rf $(SRCDIR)
+-include $(DEPS)
 
-
-quick:
-	@cp $(RESDIR)/* $(TARGETDIR)/
+MKDIR_P ?= mkdir -p
