@@ -2,8 +2,8 @@
 
 int main(int argc, char *argv[]) {
 
-  printf("it's a start right?");
+  printf("it's a start right?\n");
 
-  options();
+      options();
   return 0;
 }
