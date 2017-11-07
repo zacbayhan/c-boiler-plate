@@ -1,4 +1,4 @@
-#include"functions.h"
+#include"function.h"
 
 double options (){
 	printf("you have called the options function\n");
