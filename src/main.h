@@ -6,8 +6,10 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "function.h"
 
+
+#include "que.h"
+#include "linked.h"
 
 
 
