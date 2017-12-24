@@ -40,6 +40,8 @@ clean:
 test:
 	$(shell valgrind --leak-check=yes ./build/a.out)
 
+memory:
+	$(shell valgrind --tool=massif ./build/a.out)
 
 -include $(DEPS)
 

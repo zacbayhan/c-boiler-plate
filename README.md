@@ -4,7 +4,7 @@
 A quick and easy way to start a c program, complete with make file. Put .c, .h, .cpp files into the src directory
 
 
-* Getting Started
+#Getting Started
 
 ```
 * git clone git@github.com:zacbayhan/c-boiler-plate.git
@@ -17,4 +17,12 @@ A quick and easy way to start a c program, complete with make file. Put .c, .h, 
 
 * make clean
 
+```
+
+# Potentially useful stuff
+
+```
+by running the command `$make test`, will test the program for memory leaks
+
+by running  `$make memory` follow by `$ms_print massif.out.*` will print out a memory allocation profile over the duration of your program run time.
 ```
